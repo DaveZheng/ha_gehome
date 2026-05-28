@@ -6,7 +6,7 @@ from homeassistant.helpers.entity import Entity
 from gehomesdk.erd import ErdCode, ErdApplianceType
 
 from .base import ApplianceApi
-from ..entities import GeSacClimate, GeErdSensor, GeErdSwitch, ErdOnOffBoolConverter, GeErdBinarySensor
+from ..entities import GeBiacClimate, GeErdSensor, GeErdSwitch, ErdOnOffBoolConverter, GeErdBinarySensor
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -19,8 +19,8 @@ class BiacApi(ApplianceApi):
     def get_all_entities(self) -> List[Entity]:
         base_entities = super().get_all_entities()
 
-        sac_entities = [
-            GeSacClimate(self),
+        biac_entities = [
+            GeBiacClimate(self),
             GeErdSensor(self, ErdCode.AC_TARGET_TEMPERATURE, entity_category=EntityCategory.DIAGNOSTIC),
             GeErdSensor(self, ErdCode.AC_AMBIENT_TEMPERATURE, entity_category=EntityCategory.DIAGNOSTIC),
             GeErdSensor(self, ErdCode.AC_FAN_SETTING, icon_override="mdi:fan", entity_category=EntityCategory.DIAGNOSTIC),
@@ -30,6 +30,6 @@ class BiacApi(ApplianceApi):
             GeErdSensor(self, ErdCode.RESOURCE_DEMAND_RESPONSE_STATE, entity_category=EntityCategory.DIAGNOSTIC),
         ]
 
-        entities = base_entities + sac_entities
+        entities = base_entities + biac_entities
         return entities
 
